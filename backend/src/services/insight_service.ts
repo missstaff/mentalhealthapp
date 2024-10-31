@@ -15,16 +15,6 @@ export async function getPersonalizedInsights(): Promise<Insight[]> {
     const insightsRef = firestore().collection('personalizedinsights');
     const snapshot = await insightsRef.get();
 
-    if (snapshot.empty) {
-      await logToFirestore({
-        eventType: 'INFO',
-        message: 'No personalized insights found',
-        data: {},
-        timestamp: new Date().toISOString(),
-      });
-      return [];
-    }
-
     const insights: Insight[] = snapshot.docs.map(doc => ({ ...doc.data() as Insight }));
 
     return insights;

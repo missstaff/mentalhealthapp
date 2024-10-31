@@ -1,4 +1,4 @@
-import { retrieveUserContacts, saveUserContactToDatabase } from "../services/usercontacts_service";
+import { removeUserContactFromDatabase, retrieveUserContacts, saveUserContactToDatabase } from "../services/usercontacts_service";
 import { Request, Response } from "express";
 
 export const getUserContacts = async (req: Request, res: Response) => {
@@ -12,7 +12,7 @@ export const getUserContacts = async (req: Request, res: Response) => {
 
 export const saveUserContact = async (req: Request, res: Response) => {
   const userId = req.params.userId?.toString();
-    const { phoneNumber, phoneNumberType } = req.body;
+    const { contactName, phoneNumber, phoneNumberType } = req.body;
     if (!userId) {
       throw new Error('User ID is required');
     }
@@ -22,6 +22,15 @@ export const saveUserContact = async (req: Request, res: Response) => {
     if (!phoneNumberType) {
       throw new Error('Phone number type is required');
     }
-    const contactId = await saveUserContactToDatabase(userId, phoneNumber, phoneNumberType);
+    const contactId = await saveUserContactToDatabase(userId, contactName, phoneNumber, phoneNumberType);
     res.json({ contactId });
+}
+
+export const deleteUserContact = async (req: Request, res: Response) => {
+    const contactId = req.params.contactId?.toString();
+    if (!contactId || typeof contactId !== 'string') {
+      throw new Error('Contact ID must be a string');
+    }
+    await removeUserContactFromDatabase(contactId);
+    res.json({ message: 'Contact deleted' });
 }

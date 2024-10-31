@@ -20,13 +20,18 @@ npm install
 
 Set Up Environment Variables:
 
-Create a firebase_options.ts file and serviceAccountKey.json in the backend directory.
+Create a serviceAccountKey.json in the backend src directory. This is the service Account Key that you download from frirebase.
 
-Add your Firebase credentials and other environment variables.
+Create a .env file with your firebase api keys from your firebase options file, as well as a GOOGLE_APPLICATION_CREDENTIALS variable to host the path of your serviceAccountKey.json
+
+Add a NODE_ENV environment variable = development
+
+Add your Firebase credentials and other environment variables as needed.
 
 Start the Backend Server:
 
 npm start. Alternatively using ts-node run npx ts-node src/index.ts
+
 
 
 Frontend Setup
@@ -39,8 +44,12 @@ Install Dependencies:
 
 npm install
 
-add a .env* file with your API_URL
+add a .env.development file with your EXPO_PUBLIC_API_URL
+
+Ensure that this route is in the backend index.ts as an allowed CORS route.
 
 Start the React Native App:
 
-npm start
+npm run dev for development
+
+npm run start:prod-api to run the frontend with the backend on the server rather than local.

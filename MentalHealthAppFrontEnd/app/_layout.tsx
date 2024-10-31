@@ -1,17 +1,17 @@
 // app/_layout.tsx
-import { Slot } from 'expo-router';
-import { AuthProvider } from './AuthContext';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Slot } from "expo-router";
+import { AuthProvider } from "./AuthContext";
+import { ThemeProvider } from "@/components/ThemeContext";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export default function RootLayout() {
-  console.log('API_URL:', API_URL);
-  return(
-    <GestureHandlerRootView style={{ flex: 1 }}>
+  console.log("API_URL:", API_URL);
+  return (
+    <ThemeProvider>
       <AuthProvider>
         <Slot />
       </AuthProvider>
-    </GestureHandlerRootView>
+    </ThemeProvider>
   );
 }

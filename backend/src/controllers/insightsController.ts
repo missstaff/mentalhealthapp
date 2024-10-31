@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getUserCheckinData, calculateAverages } from '../services/checkin_service';
 import { getPersonalizedInsights, evaluateInsights } from '../services/insight_service';
-import { logToFirestore } from '../services/logs_service';  // Import logging
+import { logToFirestore } from '../services/logs_service';
 
 export const getUserPersonalizedInsights = async (req: Request, res: Response) => {
   try {

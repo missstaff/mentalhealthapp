@@ -74,3 +74,38 @@ export const signout = async () => {
   }
 };
 
+export const resetPassword = async (email: string): Promise<void> => {
+  try {
+    const response = await fetch(`${API_URL}/auth/resetpassword`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to send password reset email');
+    }
+  } catch (error: any) {
+    console.error('Error resetting password:', error.message);
+    throw new Error(error.message || 'Error resetting password');
+  }
+};
+
+export const confirmPasswordReset = async (oobCode: string, newPassword: string): Promise<void> => {
+  const response = await fetch(`${API_URL}/auth/confirmpasswordreset`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ oobCode, newPassword }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Failed to reset password');
+  }
+};
+

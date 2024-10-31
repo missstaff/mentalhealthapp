@@ -4,6 +4,8 @@ import authRoutes from './routes/auth_routes';
 import checkinRoutes from './routes/checkin_routes';
 import insightRoutes from './routes/insight_routes';
 import crisisRoutes from './routes/crisis_routes';
+import userRoutes from './routes/user_routes';
+import recommendedResourceRoutes from './routes/recommendedresource_routes';
 import admin from 'firebase-admin';
 import userContactRoutes from './routes/userContacts_routes';
 import logRoutes from './routes/log_routes';
@@ -64,6 +66,8 @@ app.use('/insight', insightRoutes);
 app.use('/crisis', crisisRoutes);
 app.use('/contacts', userContactRoutes);
 app.use('/log', logRateLimiter, logRoutes);
+app.use('/user', userRoutes);
+app.use('/resources', recommendedResourceRoutes);
 
 // Start the server
 app.listen(port, () => {

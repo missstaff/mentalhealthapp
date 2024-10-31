@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { saveUserContact } from '../../api/userContacts';
+import { saveUserContact } from '../api/userContacts';
 
 interface Props {
   visible: boolean;
@@ -49,7 +49,7 @@ const AddCrisisContactModal: React.FC<Props> = ({ visible, onClose, userId }) =>
     }
 
     try {
-      await saveUserContact(userId, contactName,phoneNumber, phoneNumberType);
+      await saveUserContact(userId, contactName, phoneNumber, phoneNumberType);
       
       onClose();
     } catch (error: any) {

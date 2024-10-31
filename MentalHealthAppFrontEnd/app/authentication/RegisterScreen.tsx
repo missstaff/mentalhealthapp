@@ -11,8 +11,12 @@ import {
 import { register } from '../../api/auth';
 import { router } from 'expo-router';
 import { useAuth } from '../AuthContext';
+import { useThemeContext } from '@/components/ThemeContext';
 
 export default function RegisterScreen() {
+  const { theme } = useThemeContext();
+  const styles = createStyles(theme);
+
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -95,49 +99,53 @@ export default function RegisterScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    paddingHorizontal: 30,
-    paddingTop: 80,
-    backgroundColor: '#f7f7f7',
-    alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 32,
-    fontWeight: '600',
-    marginBottom: 40,
-    color: '#333',
-  },
-  input: {
-    width: '100%',
-    padding: 15,
-    marginVertical: 10,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    fontSize: 16,
-    borderColor: '#ddd',
-    borderWidth: 1,
-  },
-  registerButton: {
-    backgroundColor: '#4e9c81',
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 30,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
-  backButton: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  backButtonText: {
-    color: '#4e9c81',
-    fontSize: 16,
-    textDecorationLine: 'underline',
-  },
-});
+const createStyles = (theme: string) => {
+  const isDark = theme === 'dark';
+  return StyleSheet.create({
+    container: {
+      flexGrow: 1,
+      paddingHorizontal: 30,
+      paddingTop: 80,
+      backgroundColor: isDark ? '#121212' : '#f7f7f7',
+      alignItems: 'center',
+    },
+    headerText: {
+      fontSize: 32,
+      fontWeight: '600',
+      marginBottom: 40,
+      color: isDark ? '#e0e0e0' : '#333',
+    },
+    input: {
+      width: '100%',
+      padding: 15,
+      marginVertical: 10,
+      backgroundColor: isDark ? '#333333' : '#ffffff',
+      borderRadius: 8,
+      fontSize: 16,
+      borderColor: isDark ? '#444444' : '#ddd',
+      borderWidth: 1,
+      color: isDark ? '#e0e0e0' : '#000',
+    },
+    registerButton: {
+      backgroundColor: isDark ? '#388e3c' : '#4e9c81',
+      paddingVertical: 15,
+      borderRadius: 8,
+      alignItems: 'center',
+      width: '100%',
+      marginTop: 30,
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 18,
+    },
+    backButton: {
+      alignItems: 'center',
+      marginTop: 20,
+    },
+    backButtonText: {
+      color: isDark ? '#81c784' : '#4e9c81',
+      fontSize: 16,
+      textDecorationLine: 'underline',
+    },
+  });
+};

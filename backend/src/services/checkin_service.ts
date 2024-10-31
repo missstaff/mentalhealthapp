@@ -90,16 +90,6 @@ export async function getUserCheckinData(userId: string, days: number): Promise<
       .where('timestamp', '>=', startDate)
       .get();
 
-    if (snapshot.empty) {
-      await logToFirestore({
-        eventType: 'INFO',
-        message: 'No check-in data found',
-        data: { userId, days },
-        timestamp: new Date().toISOString(),
-      });
-      return [];
-    }
-
     const checkinData: CheckinData[] = [];
     snapshot.forEach(doc => checkinData.push(doc.data() as CheckinData));
 
@@ -152,13 +142,6 @@ export function calculateAverages(checkinData: CheckinData[]): Averages {
     sleep: count.sleep ? Math.round(totals.sleep / count.sleep) : 0,
     activity: count.activity ? Math.round(totals.activity / count.activity) : 0,
   };
-
-  logToFirestore({
-    eventType: 'INFO',
-    message: 'Calculated averages',
-    data: { averages },
-    timestamp: new Date().toISOString(),
-  }).catch(error => console.error('Error logging averages:', error));
-
+  
   return averages;
 }
